@@ -19,9 +19,10 @@ public class MyGdxGame implements ApplicationListener {
 	private Sprite sprite_nave; 
 	private Sprite sprite_kill;
 	private Texture texture_kill;
-	 
-	 
-	int Rotacion=0; 
+	private Sprite sprite_fondo;
+	private Texture texture_fondo;
+	int Rotacion=0;
+	float Translate;
 	 
 	@Override 
 	public void create() {		 
@@ -30,28 +31,34 @@ public class MyGdxGame implements ApplicationListener {
 		 
 		camera = new OrthographicCamera(1, h/w); 
 		batch = new SpriteBatch(); 
-		 
-		texture = new Texture(Gdx.files.internal("data/libgdx.png")); 
+	 
+		
+		texture = new Texture(Gdx.files.internal("data/sol.png")); 
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear); 
+		
 		texture_nave = new Texture(Gdx.files.internal("data/nave.png")); 
 		texture_kill = new Texture(Gdx.files.internal("data/enemigo.png"));
+		texture_fondo = new Texture(Gdx.files.internal("data/fondo.png"));
 		 
 		TextureRegion region = new TextureRegion(texture, 0, 0, 512, 275); 
 		 
 		sprite = new Sprite(region); 
-		sprite.setSize(0.9f, 0.9f * sprite.getHeight() / sprite.getWidth()); 
+		sprite.setSize(0.8f, 0.8f * sprite.getHeight() / sprite.getWidth()); 
 		sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2); 
 		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2); 
 		sprite.setPosition(0,0); 
 		 
 		sprite_nave = new Sprite(texture_nave,128,64); 
-		sprite_nave.setPosition(-0.2f,-0.2f); 
+		sprite_nave.setPosition(-0.5f,-0.1f); 
 		sprite_nave.setSize(0.2f,0.2f); 
 		
 		sprite_kill = new Sprite(texture_kill,256,256);
 		sprite_kill.setPosition(-0.1f,-0.1f);
-		sprite_kill.setSize(0.1f,0.1f);
-		 
+		sprite_kill.setSize(0.2f,0.2f);
+		
+		sprite_fondo = new Sprite(texture_fondo,256,256);
+		sprite_fondo.setPosition(-0.6f,-0.6f);
+		sprite_fondo.setSize(1.2f,1.2f);
 	} 
  
 	@Override 
@@ -64,12 +71,18 @@ public class MyGdxGame implements ApplicationListener {
 	public void render() {		 
 		Gdx.gl.glClearColor(0.4f, 0.5f,1 ,1 ); 
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT); 
+		sprite_kill.setX(Translate);
+		if(Gdx.input.isTouched())
+		{
+			Translate-=0.01;
+		}
+
 		sprite.setRotation(Rotacion); 
 		Rotacion++; 
 		 
-		 
 		batch.setProjectionMatrix(camera.combined); 
 		batch.begin(); 
+		sprite_fondo.draw(batch); 
 		sprite_nave.draw(batch); 
 		sprite_kill.draw(batch);
 		sprite.draw(batch); 
