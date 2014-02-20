@@ -33,20 +33,21 @@ public class MyGdxGame implements ApplicationListener {
 		batch = new SpriteBatch(); 
 	 
 		
-		texture = new Texture(Gdx.files.internal("data/sol.png")); 
+		texture = new Texture(Gdx.files.internal("data/sol2.png")); 
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear); 
 		
 		texture_nave = new Texture(Gdx.files.internal("data/nave.png")); 
 		texture_kill = new Texture(Gdx.files.internal("data/enemigo.png"));
 		texture_fondo = new Texture(Gdx.files.internal("data/fondo.png"));
+		
 		 
-		TextureRegion region = new TextureRegion(texture, 0, 0, 512, 275); 
+		//TextureRegion region = new TextureRegion(texture, 0, 0, 512, 275); 
 		 
-		sprite = new Sprite(region); 
-		sprite.setSize(0.8f, 0.8f * sprite.getHeight() / sprite.getWidth()); 
+		sprite = new Sprite(texture); 
+		sprite.setSize(0.3f, 0.3f); 
 		sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2); 
-		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2); 
-		sprite.setPosition(0,0); 
+		sprite.setPosition(0.2f,0.09f); 
+		//sprite.setPosition(0,0); 
 		 
 		sprite_nave = new Sprite(texture_nave,128,64); 
 		sprite_nave.setPosition(-0.5f,-0.1f); 
@@ -72,6 +73,7 @@ public class MyGdxGame implements ApplicationListener {
 		Gdx.gl.glClearColor(0.4f, 0.5f,1 ,1 ); 
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT); 
 		sprite_kill.setX(Translate);
+		
 		if(Gdx.input.isTouched())
 		{
 			Translate-=0.01;
